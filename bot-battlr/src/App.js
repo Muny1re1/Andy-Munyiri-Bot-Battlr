@@ -13,14 +13,13 @@ function App() {
       })
       .catch(()=>{
         if(Bots != []){
-          return console.log(Bots)
+          return console.log("Success")
         } else {
         console.error("Failed to fetch bots")
         }
       }
       )
   }, []);
-  console.log(Bots);
 
   return (
     <BotCollection bots={Bots}/>
