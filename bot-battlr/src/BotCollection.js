@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import YourBotArmy from './YourBotArmy';
 function BotCollection({ bots }) {
+
     const [army, setArmy] = useState([]);
 
     function displayYourArmy(bot) {
         setArmy(army.concat(bot));
+        
     }
     console.log(army);
 
     return (
         <>
-        <div className='army-container'>
-            <h1>Your Army.</h1>
-            < YourBotArmy bots={army}/>
-        </div>
+        < YourBotArmy bots={army} setArmy={setArmy}/>
             <div className='bot-container'>
                 {bots.map((bot) =>
                     <div key={bot.id}>

@@ -21,8 +21,12 @@ function App() {
       )
   }, []);
 
+
+
   return (
+   <>
     <BotCollection bots={Bots}/>
+   </>
   )
 };
 
