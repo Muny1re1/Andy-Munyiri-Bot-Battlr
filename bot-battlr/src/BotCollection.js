@@ -1,34 +1,40 @@
-import React, { useState } from 'react';
-import YourBotArmy from './YourBotArmy';
-function BotCollection({ bots }) {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import YourBotArmy from './YourBotArmy.js';
 
-    const [army, setArmy] = useState([]);
+function BotCollection({ bots, army, setArmy }) {
 
-    function displayYourArmy(bot) {
-        setArmy(army.concat(bot));
-        
+    function addToArmy(bot) {
+        if (!army.some(existingBot => existingBot.bot_class === bot.bot_class)) {
+            setArmy(prevArmy => [...prevArmy, bot]);
+        } else {
+            console.log(`A bot of class ${bot.bot_class} is already in the army.`);
+        }
     }
-    console.log(army);
 
     return (
         <>
-        < YourBotArmy bots={army} setArmy={setArmy}/>
+        <YourBotArmy army={army} setArmy={setArmy} />
             <div className='bot-container'>
-                {bots.map((bot) =>
+                {bots.map(bot => (
                     <div key={bot.id}>
-                        <div className="bot-image">
-                            <img onClick={() => displayYourArmy(bot)} src={bot.avatar_url} alt={bot.avatar_url} />
+                        <div className="bot-image" onClick={() => addToArmy(bot)}>
+                            <img src={bot.avatar_url} alt={bot.avatar_url} />
                         </div>
-                        <div className="bot-info">
-                            <h3>{bot.name}</h3>
-                            <p>{bot.catchphrase}</p>
-                            <p>Health:{bot.health} Damage:{bot.damage} Armor:{bot.armor}</p>
-                        </div>
+                        <Link to={`/botSpecs/${bot.id}`}>
+                            <div className="bot-info">
+                                <h3>{bot.name}</h3>
+                                <p>{bot.catchphrase}</p>
+                                <p>Health: {bot.health} Damage: {bot.damage} Armor: {bot.armor}</p>
+                            </div>
+                        </Link>
                     </div>
-                )}
+                ))}
+                {army.length === 0 && <p>You have no bots in your army</p>}
             </div>
+            
         </>
-    )
-};
+    );
+}
 
 export default BotCollection;

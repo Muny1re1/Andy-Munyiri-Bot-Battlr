@@ -1,37 +1,37 @@
 import React from 'react';
 
-function YourBotArmy({ bots, setArmy }) {
-    
-    
-    function dischargeButton(selected) {
-             const stateUpdate = bots.filter((bot) => bot.id !== selected);
-            setArmy(stateUpdate);
+function YourBotArmy({ army, setArmy }) {
 
-            fetch(`http://localhost:3000/bots/${selected}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          }
-        })
-        .then(r => {
-            if(r.ok){
-                return r.json();
-            } else {
-                console.error("Failed to delete bots")
+function removeFromArmy(){
+    const updatedArmy = army.filter(bot => bot.id!== bot.id);
+    setArmy(updatedArmy);
+}
+
+    function dischargeButton(selectedId) {
+        const updatedArmy = army.filter(bot => bot.id !== selectedId);
+        setArmy(updatedArmy);
+
+        fetch(`http://localhost:3000/bots/${selectedId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         })
+        .then(r => {
+            if (!r.ok) {
+                console.error("Failed to delete bot");
+            }
+        });
     }
 
-
     return (
-        <>
         <div className='army-container'>
             <p>Army</p>
-            {bots.map(bot => (
+            {army.map(bot => (
                 <div key={bot.id} className="bot-container">
-                    <button onClick={()=>{dischargeButton(bot.id)}}>X</button>
-                    <div className="bot-image">
+                    <button onClick={() => dischargeButton(bot.id)}>X</button>
+                    <div className="bot-image" onClick={removeFromArmy}>
                         <img src={bot.avatar_url} alt={bot.avatar_url} />
                     </div>
                     <div className="bot-info">
@@ -41,9 +41,8 @@ function YourBotArmy({ bots, setArmy }) {
                     </div>
                 </div>
             ))}
-            </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default YourBotArmy;
