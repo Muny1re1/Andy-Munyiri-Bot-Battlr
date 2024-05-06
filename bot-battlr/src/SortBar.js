@@ -1,12 +1,13 @@
 import React from 'react';
 
-function SortBar({ bots, setBots }) {
-    const [initialBots] = React.useState(bots);
+function SortBar({ bots, setBots, definate }) {
 
     function onlyDisplay(event) {
         const selectedValue = event.target.value;
+        setBots(definate);
+        
         if (selectedValue === 'All') {
-            setBots(initialBots);
+            setBots(bots);
         } else {
             const displayed = bots.filter(bot => bot.bot_class === selectedValue);
             setBots(displayed);

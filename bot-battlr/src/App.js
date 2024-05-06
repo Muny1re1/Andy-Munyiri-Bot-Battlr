@@ -9,13 +9,16 @@ import SortBar from './SortBar';
 function App() {
   const [Bots, setBots] = useState([]);
   const [army, setArmy] = useState([]);
+  const [definate, setDefinate] = useState([]);
 
 
-  useEffect(() => {
+  useEffect(
+    function fetchData(){
     fetch("http://localhost:3000/bots")
       .then(r => r.json())
       .then(data => {
-        setBots(data)
+        setBots(data);
+        setDefinate(data);
       })
       .catch((error) => {
         console.error("Failed to fetch bots", error);
@@ -24,7 +27,7 @@ function App() {
 
   return (
     <>
-      < SortBar bots={Bots} setBots={setBots}/>
+      < SortBar bots={Bots} setBots={setBots} definate={definate}/>
 
       <Router>
         <Routes>
