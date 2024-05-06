@@ -2,8 +2,8 @@ import React from 'react';
 
 function YourBotArmy({ army, setArmy }) {
 
-function removeFromArmy(){
-    const updatedArmy = army.filter(bot => bot.id!== bot.id);
+function removeFromArmy(selectedId){
+    const updatedArmy = army.filter(bot => bot.id !== selectedId);
     setArmy(updatedArmy);
 }
 
@@ -28,10 +28,11 @@ function removeFromArmy(){
     return (
         <div className='army-container'>
             <p>Army</p>
+            <div className='bot-container'>
             {army.map(bot => (
-                <div key={bot.id} className="bot-container">
+                <div key={bot.id} className="bot">
                     <button onClick={() => dischargeButton(bot.id)}>X</button>
-                    <div className="bot-image" onClick={removeFromArmy}>
+                    <div className="bot-image" onClick={()=>removeFromArmy(bot.id)}>
                         <img src={bot.avatar_url} alt={bot.avatar_url} />
                     </div>
                     <div className="bot-info">
@@ -41,6 +42,7 @@ function removeFromArmy(){
                     </div>
                 </div>
             ))}
+            </div>
         </div>
     );
 }

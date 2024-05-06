@@ -8,7 +8,7 @@ function BotCollection({ bots, army, setArmy }) {
         if (!army.some(existingBot => existingBot.bot_class === bot.bot_class)) {
             setArmy(prevArmy => [...prevArmy, bot]);
         } else {
-            console.log(`A bot of class ${bot.bot_class} is already in the army.`);
+            alert(`A bot of class ${bot.bot_class} is already in the army. Select a bot from another class.`);
         }
     }
 
@@ -16,8 +16,9 @@ function BotCollection({ bots, army, setArmy }) {
         <>
         <YourBotArmy army={army} setArmy={setArmy} />
             <div className='bot-container'>
+                <div className='bot-grid'>
                 {bots.map(bot => (
-                    <div key={bot.id}>
+                    <div key={bot.id} className='bot'>
                         <div className="bot-image" onClick={() => addToArmy(bot)}>
                             <img src={bot.avatar_url} alt={bot.avatar_url} />
                         </div>
@@ -31,6 +32,7 @@ function BotCollection({ bots, army, setArmy }) {
                     </div>
                 ))}
                 {army.length === 0 && <p>You have no bots in your army</p>}
+            </div>
             </div>
             
         </>
