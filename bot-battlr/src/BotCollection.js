@@ -1,7 +1,16 @@
+// importing the necessary components from their respective files.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import YourBotArmy from './YourBotArmy.js';
 
+// declaring a BtCollection function that receives the props bots, army and setArmy from its parent App.js.
+/*
+This function does the following things : 1. has an addToArmy function that sets the value of army to that of the selected bot
+2. The addToArmy function also checks whether army already contains a bot of the selected bots class and if it does alerts the user if not the bot is added to the army.
+3 Usingthe army and set army props the function renders the Your Army component and also renders the bot collection.
+This is achieved by mapping through every bot.
+4, It also calls to the Link component from react router dom so that when the info of the bot is clicked the user is navigated to the botSpecs component.
+*/
 function BotCollection({ bots, army, setArmy }) {
 
     function addToArmy(bot) {
@@ -16,11 +25,10 @@ function BotCollection({ bots, army, setArmy }) {
         <>
         <YourBotArmy army={army} setArmy={setArmy} />
             <div className='bot-container'>
-                <div className='bot-grid'>
                 {bots.map(bot => (
                     <div key={bot.id} className='bot'>
                         <div className="bot-image" onClick={() => addToArmy(bot)}>
-                            <img src={bot.avatar_url} alt={bot.avatar_url} />
+                            <img className="avatar-image" src={bot.avatar_url} alt={bot.avatar_url} />
                         </div>
                         <Link to={`/botSpecs/${bot.id}`}>
                             <div className="bot-info">
@@ -31,8 +39,7 @@ function BotCollection({ bots, army, setArmy }) {
                         </Link>
                     </div>
                 ))}
-                {army.length === 0 && <p>You have no bots in your army</p>}
-            </div>
+                
             </div>
             
         </>

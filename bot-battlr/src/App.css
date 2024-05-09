@@ -19,9 +19,30 @@ body {
   padding: 20px;
 }
 
+.army-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.army-container p{
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
 .bot-container {
   display: flex;
   flex-wrap: wrap;
+  object-fit: contain;
   margin-bottom: 10px;
   justify-content: center;
   gap: 20px;
@@ -30,6 +51,7 @@ body {
 
 .bot {
   display: flex;
+  flex-direction: column;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
@@ -41,15 +63,19 @@ body {
   transform: scale(1.05);
 }
 
-.bot-image {
+.avatar-image{
   cursor: pointer;
+  object-fit: contain;
+  width: 150px;
+  height: 100px;
 }
 
 .bot-info {
   border-radius: 10px;
   background-color: gray;
+  object-fit: contain;
   width:280px;
-  height: 280px;
+  height: 110px;
   padding: 10px;
 }
 
